@@ -1,0 +1,2 @@
+2018-11-01 12:03:12.821 INFO [main]com.cxd.october.OctoberApplication.logStarting:50 -Starting OctoberApplication on 192-200-232-60.mci.googlefiber.net with PID 1213 (/Users/chenminhao/Desktop/october/target/classes started by chenminhao in /Users/chenminhao/Desktop/october)
+2018-11-01 12:03:12.826 INFO [main]com.cxd.october.OctoberApplication.logStartupProfileInfo:675 -No active profile set, falling back to default profiles: default
