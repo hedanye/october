@@ -34,7 +34,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.cxd.october.pojo.MmallShippingMapper">
+  <insert id="insert" parameterType="com.cxd.october.pojo.MmallShipping">
     insert into mmall_shipping (id, user_id, receiver_name, 
       receiver_phone, receiver_mobile, receiver_province, 
       receiver_city, receiver_district, receiver_address, 
@@ -46,7 +46,7 @@
       #{receiverZip,jdbcType=VARCHAR}, now(), now()
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cxd.october.pojo.MmallShippingMapper">
+  <insert id="insertSelective" parameterType="com.cxd.october.pojo.MmallShipping">
     insert into mmall_shipping
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -128,7 +128,7 @@
 
 
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.pojo.MmallShippingMapper">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.pojo.MmallShipping">
     update mmall_shipping
     <set>
       <if test="userId != null">
@@ -167,7 +167,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cxd.october.pojo.MmallShippingMapper">
+  <update id="updateByPrimaryKey" parameterType="com.cxd.october.pojo.MmallShipping">
     update mmall_shipping
     set user_id = #{userId,jdbcType=INTEGER},
       receiver_name = #{receiverName,jdbcType=VARCHAR},
