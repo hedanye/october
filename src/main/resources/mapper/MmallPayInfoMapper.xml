@@ -2,14 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxd.october.dao.MmallPayInfoMapper">
   <resultMap id="BaseResultMap" type="com.cxd.october.pojo.MmallPayInfo">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="order_no" jdbcType="BIGINT" property="orderNo" />
-    <result column="pay_platform" jdbcType="INTEGER" property="payPlatform" />
-    <result column="platform_number" jdbcType="VARCHAR" property="platformNumber" />
-    <result column="platform_status" jdbcType="VARCHAR" property="platformStatus" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="order_no" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="pay_platform" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="platform_number" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="platform_status" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -28,15 +30,15 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.cxd.october.dao.MmallPayInfoMapper">
+  <insert id="insert" parameterType="com.cxd.october.pojo.MmallPayInfo">
     insert into mmall_pay_info (id, user_id, order_no, 
       pay_platform, platform_number, platform_status, 
       create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderNo,jdbcType=BIGINT}, 
       #{payPlatform,jdbcType=INTEGER}, #{platformNumber,jdbcType=VARCHAR}, #{platformStatus,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      now(), now())
   </insert>
-  <insert id="insertSelective" parameterType="com.cxd.october.dao.MmallPayInfoMapper">
+  <insert id="insertSelective" parameterType="com.cxd.october.pojo.MmallPayInfo">
     insert into mmall_pay_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -84,17 +86,17 @@
         #{platformStatus,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+       now(),
       </if>
       <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+       now(),
       </if>
     </trim>
   </insert>
 
 
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.dao.MmallPayInfoMapper">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.pojo.MmallPayInfo">
     update mmall_pay_info
     <set>
       <if test="userId != null">
@@ -116,12 +118,12 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cxd.october.dao.MmallPayInfoMapper">
+  <update id="updateByPrimaryKey" parameterType="com.cxd.october.pojo.MmallPayInfo">
     update mmall_pay_info
     set user_id = #{userId,jdbcType=INTEGER},
       order_no = #{orderNo,jdbcType=BIGINT},
@@ -129,7 +131,7 @@
       platform_number = #{platformNumber,jdbcType=VARCHAR},
       platform_status = #{platformStatus,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

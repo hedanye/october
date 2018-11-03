@@ -10,6 +10,8 @@ public interface MmallProductMapper {
 
     int deleteByPrimaryKey(Integer id);
 
+    int insert(MmallProduct record);
+
 
     int insertSelective(MmallProduct record);
 
@@ -17,6 +19,10 @@ public interface MmallProductMapper {
 
 
     int updateByPrimaryKeySelective(MmallProduct record);
+
+    int updateByPrimaryKey(MmallProduct record);
+
+
 
 
     List<MmallProduct> selectList();
@@ -28,5 +34,9 @@ public interface MmallProductMapper {
 
     List<MmallProduct> selectByNameAndcatrgoryIds(@Param(value = "productName")String productName,
                                                   @Param(value = "categoryIdList")List<Integer> categoryIdList);
+
+
+
+    Integer selectStockByProductId(Integer productId);
 
 }

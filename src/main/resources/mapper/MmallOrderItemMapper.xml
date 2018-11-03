@@ -2,17 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxd.october.dao.MmallOrderItemMapper">
   <resultMap id="BaseResultMap" type="com.cxd.october.pojo.MmallOrderItem">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="order_no" jdbcType="BIGINT" property="orderNo" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="product_name" jdbcType="VARCHAR" property="productName" />
-    <result column="product_image" jdbcType="VARCHAR" property="productImage" />
-    <result column="current_unit_price" jdbcType="DECIMAL" property="currentUnitPrice" />
-    <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="order_no" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="product_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="product_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="product_image" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="current_unit_price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="quantity" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="total_price" jdbcType="DECIMAL" javaType="java.math.BigDecimal" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -31,7 +33,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.cxd.october.dao.MmallOrderItemMapper">
+  <insert id="insert" parameterType="com.cxd.october.pojo.MmallOrderItem">
     insert into mmall_order_item (id, user_id, order_no, 
       product_id, product_name, product_image, 
       current_unit_price, quantity, total_price, 
@@ -39,9 +41,9 @@
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{orderNo,jdbcType=BIGINT}, 
       #{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productImage,jdbcType=VARCHAR}, 
       #{currentUnitPrice,jdbcType=DECIMAL}, #{quantity,jdbcType=INTEGER}, #{totalPrice,jdbcType=DECIMAL}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      now(), now())
   </insert>
-  <insert id="insertSelective" parameterType="com.cxd.october.dao.MmallOrderItemMapper">
+  <insert id="insertSelective" parameterType="com.cxd.october.pojo.MmallOrderItem">
     insert into mmall_order_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -107,17 +109,17 @@
         #{totalPrice,jdbcType=DECIMAL},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+        now(),
       </if>
       <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+        now(),
       </if>
     </trim>
   </insert>
 
 
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.dao.MmallOrderItemMapper">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.pojo.MmallOrderItem">
     update mmall_order_item
     <set>
       <if test="userId != null">
@@ -148,12 +150,12 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cxd.october.dao.MmallOrderItemMapper">
+  <update id="updateByPrimaryKey" parameterType="com.cxd.october.pojo.MmallOrderItem">
     update mmall_order_item
     set user_id = #{userId,jdbcType=INTEGER},
       order_no = #{orderNo,jdbcType=BIGINT},
@@ -164,7 +166,7 @@
       quantity = #{quantity,jdbcType=INTEGER},
       total_price = #{totalPrice,jdbcType=DECIMAL},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

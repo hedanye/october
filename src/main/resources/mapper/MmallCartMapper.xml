@@ -2,13 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxd.october.dao.MmallCartMapper">
   <resultMap id="BaseResultMap" type="com.cxd.october.pojo.MmallCart">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="checked" jdbcType="INTEGER" property="checked" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="product_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="quantity" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="checked" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -26,15 +28,15 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.cxd.october.dao.MmallCartMapper">
+  <insert id="insert" parameterType="com.cxd.october.pojo.MmallCart">
     insert into mmall_cart (id, user_id, product_id, 
       quantity, checked, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
-      #{quantity,jdbcType=INTEGER}, #{checked,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{quantity,jdbcType=INTEGER}, #{checked,jdbcType=INTEGER}, now(),
+     now())
   </insert>
-  <insert id="insertSelective" parameterType="com.cxd.october.dao.MmallCartMapper">
+  <insert id="insertSelective" parameterType="com.cxd.october.pojo.MmallCart">
     insert into mmall_cart
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -76,16 +78,16 @@
         #{checked,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+        now(),
       </if>
       <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+        now(),
       </if>
     </trim>
   </insert>
 
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.dao.MmallCartMapper">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.pojo.MmallCart">
     update mmall_cart
     <set>
       <if test="userId != null">
@@ -104,19 +106,19 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cxd.october.dao.MmallCartMapper">
+  <update id="updateByPrimaryKey" parameterType="com.cxd.october.pojo.MmallCart">
     update mmall_cart
     set user_id = #{userId,jdbcType=INTEGER},
       product_id = #{productId,jdbcType=INTEGER},
       quantity = #{quantity,jdbcType=INTEGER},
       checked = #{checked,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

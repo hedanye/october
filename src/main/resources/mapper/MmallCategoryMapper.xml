@@ -2,13 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cxd.october.dao.MmallCategoryMapper">
   <resultMap id="BaseResultMap" type="com.cxd.october.pojo.MmallCategory">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="status" jdbcType="BIT" property="status" />
-    <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="parent_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="status" jdbcType="BIT" javaType="java.lang.Boolean" />
+      <arg column="sort_order" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
   </resultMap>
 
   <sql id="Base_Column_List">
@@ -26,15 +28,15 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.cxd.october.dao.MmallCategoryMapper">
+  <insert id="insert" parameterType="com.cxd.october.pojo.MmallCategory">
     insert into mmall_category (id, parent_id, name, 
       status, sort_order, create_time, 
       update_time)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, now(),
+      now())
   </insert>
-  <insert id="insertSelective" parameterType="com.cxd.october.dao.MmallCategoryMapper">
+  <insert id="insertSelective" parameterType="com.cxd.october.pojo.MmallCategory">
     insert into mmall_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -76,17 +78,17 @@
         #{sortOrder,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+       now(),
       </if>
       <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+        now(),
       </if>
     </trim>
   </insert>
 
 
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.dao.MmallCategoryMapper">
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxd.october.pojo.MmallCategory">
     update mmall_category
     <set>
       <if test="parentId != null">
@@ -105,19 +107,19 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = now(),
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cxd.october.dao.MmallCategoryMapper">
+  <update id="updateByPrimaryKey" parameterType="com.cxd.october.pojo.MmallCategory">
     update mmall_category
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       status = #{status,jdbcType=BIT},
       sort_order = #{sortOrder,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
