@@ -194,15 +194,20 @@ public class UserServiceImpl implements IUserService {
         }
         return ServerResponse.createByError("更新失败");
 
-
-
-
-
-
-
-
-
     }
+
+    @Override
+    public ServerResponse checkAdmin(MmallUser user){
+        if (user!=null&&user.getRole().intValue()==Role.ROLE_ADMIN.getCode()){
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
+    }
+
+
+
+
+
 
 
 }

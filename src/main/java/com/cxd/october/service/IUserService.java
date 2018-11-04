@@ -25,4 +25,9 @@ public interface IUserService {
 
     ServerResponse<MmallUser> updateInfo( MmallUser user);
 
+    ServerResponse checkAdmin(MmallUser user);
+
+
+
+
 }

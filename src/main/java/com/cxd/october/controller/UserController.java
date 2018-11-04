@@ -21,7 +21,6 @@ public class UserController {
 
 
 
-
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     public ServerResponse<MmallUser> login(HttpSession session, String username, String password){
 
